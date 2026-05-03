@@ -23,7 +23,7 @@ export default function Cell({ isWall, isPlayer, isVisited, size }) {
             width: size * 0.5,
             height: size * 0.5,
             borderRadius: size * 4,
-            backgroundColor: "blue",
+            backgroundColor: "orange",
           }}
         />
       )}
