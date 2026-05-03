@@ -1,50 +1,166 @@
-# Welcome to your Expo app 👋
+# 🎮 FillFlow
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A smooth, swipe-based maze puzzle game built with Expo and React Native.
 
-## Get started
+FillFlow challenges players to slide through a maze, filling every path with color using continuous motion. One swipe moves the player until hitting a wall—creating a satisfying and strategic gameplay experience.
 
-1. Install dependencies
+---
 
-   ```bash
-   npm install
-   ```
+## ✨ Features
 
-2. Start the app
+* 🎯 Slide-until-wall movement mechanic
+* 🎨 Smooth paint trail filling
+* 🧩 Grid-based maze puzzles
+* ⚡ High-performance animations using Reanimated
+* 👆 Gesture-based controls (swipe in 4 directions)
+* 📱 Built with Expo for fast development
 
-   ```bash
-   npx expo start
-   ```
+---
 
-In the output, you'll find options to open the app in a
+## 🧠 Gameplay
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+* Swipe in any direction (up, down, left, right)
+* The player slides until hitting a wall
+* Tiles are painted as the player moves
+* You can move over already painted tiles
+* Goal: Fill the entire maze
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+---
 
-## Get a fresh project
+## 🛠️ Tech Stack
 
-When you're ready, run:
+* React Native
+* Expo
+* React Native Reanimated
+* React Native Gesture Handler
+* Expo Router
 
-```bash
-npm run reset-project
+---
+
+## 📁 Project Structure
+
+```
+/app
+  _layout.tsx        # Root layout (navigation + providers)
+  index.tsx          # Main game screen
+
+/src
+  /components
+    Grid.tsx         # Renders the board
+    Cell.tsx         # Individual tile
+    Player.tsx       # Animated player
+
+  /game
+    useGame.ts       # Game state & logic
+    movement.ts      # Slide-until-wall logic
+    constants.ts     # Cell types
+    types.ts         # Type definitions
+
+  /utils
+    maze.ts          # Maze generation (planned)
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+---
 
-## Learn more
+## 🚀 Getting Started
 
-To learn more about developing your project with Expo, look at the following resources:
+### 1. Clone the repo
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```bash
+git clone https://github.com/your-username/fillflow.git
+cd fillflow
+```
 
-## Join the community
+### 2. Install dependencies
 
-Join our community of developers creating universal apps.
+```bash
+npm install
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+### 3. Start the app
+
+```bash
+npx expo start
+```
+
+* Press `a` for Android
+* Press `i` for iOS
+* Or scan QR with Expo Go
+
+---
+
+## ⚙️ Important Setup
+
+### Reanimated Configuration
+
+Make sure `babel.config.js` includes:
+
+```js
+plugins: ['react-native-reanimated/plugin']
+```
+
+Then restart:
+
+```bash
+npx expo start -c
+```
+
+---
+
+## 🎯 Roadmap
+
+### MVP
+
+* [x] Grid rendering
+* [x] Swipe detection
+* [x] Sliding movement
+* [x] Paint trail
+
+### Next
+
+* [ ] Maze generation (DFS / backtracking)
+* [ ] Level progression
+* [ ] Animations polish
+* [ ] Sound & haptics
+* [ ] UI improvements
+
+### Future Ideas
+
+* [ ] Undo moves
+* [ ] Level editor
+* [ ] Daily challenges
+* [ ] Themes / skins
+
+---
+
+## 🧪 Development Approach
+
+This project focuses on:
+
+* Clean separation of logic and UI
+* Smooth animations over complex visuals
+* Iterative development (MVP → polish)
+
+---
+
+## 📸 Screenshots
+
+> Coming soon...
+
+---
+
+## 🤝 Contributing
+
+Contributions, ideas, and feedback are welcome.
+
+---
+
+## 📄 License
+
+MIT License
+
+---
+
+## 👤 Author
+
+Built by Suleman 🚀
