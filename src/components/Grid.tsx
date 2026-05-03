@@ -2,26 +2,27 @@ import { Dimensions, StyleSheet, View } from "react-native";
 import Cell from "./Cell";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
-const GRID_PADDING = 20;
 
 export default function Grid({ playerPos, visited, level }) {
-  const cells = [];
-
   const grid = level.grid;
 
   const rows = grid.length;
   const cols = grid[0].length;
 
-  // 🔥 dynamic cell size
-  const cellSize = (SCREEN_WIDTH - GRID_PADDING) / cols;
+  const cellSize = Math.floor(SCREEN_WIDTH / cols);
+  const gridWidth = cellSize * cols;
+
+  const rowsElements = [];
 
   for (let y = 0; y < rows; y++) {
+    const rowCells = [];
+
     for (let x = 0; x < cols; x++) {
       const isWall = grid[y][x] === 1;
       const isPlayer = playerPos.x === x && playerPos.y === y;
       const isVisited = visited.has(`${x}-${y}`);
 
-      cells.push(
+      rowCells.push(
         <Cell
           key={`${x}-${y}`}
           isWall={isWall}
@@ -31,15 +32,26 @@ export default function Grid({ playerPos, visited, level }) {
         />,
       );
     }
+
+    rowsElements.push(
+      <View key={y} style={styles.row}>
+        {rowCells}
+      </View>,
+    );
   }
 
-  return <View style={styles.grid}>{cells}</View>;
+  return (
+    <View style={[styles.grid, { width: gridWidth }]}>{rowsElements}</View>
+  );
 }
 
 const styles = StyleSheet.create({
   grid: {
     alignSelf: "center",
+    backgroundColor: "#111827",
+  },
+
+  row: {
     flexDirection: "row",
-    flexWrap: "wrap",
   },
 });

@@ -12,6 +12,7 @@ export default function GameScreen() {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
+        backgroundColor: "#F97316",
       }}
     >
       {/* LEVEL TEXT */}
@@ -115,6 +116,6 @@ const styles = StyleSheet.create({
   },
 
   centerSpace: {
-    width: 10,
+    width: 30,
   },
 });
