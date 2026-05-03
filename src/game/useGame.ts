@@ -1,35 +1,54 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { Animated } from "react-native";
 import { levels } from "./constants";
 import { isLevelComplete } from "./engine";
 import { slide } from "./movement";
+
+const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
 export const useGame = () => {
     const [levelIndex, setLevelIndex] = useState(0);
     const currentLevel = levels[levelIndex];
 
-
     const [playerPos, setPlayerPos] = useState(currentLevel.initialPos);
-    const [visited, setVisited] = useState<Set<string>>(
-        new Set(["1-1"])
+    const [visited, setVisited] = useState(
+        new Set([`${currentLevel.initialPos.x}-${currentLevel.initialPos.y}`])
     );
     const [showWin, setShowWin] = useState(false);
 
+    const playerAnim = useRef(new Animated.ValueXY()).current;
 
-    const move = (direction: "UP" | "DOWN" | "LEFT" | "RIGHT") => {
+    const animateTo = (x, y, cellSize) => {
+        return new Promise((resolve) => {
+            Animated.timing(playerAnim, {
+                toValue: {
+                    x: Math.round(x * cellSize),
+                    y: Math.round(y * cellSize),
+                },
+                duration: 60,
+                useNativeDriver: true,
+            }).start(resolve);
+        });
+    };
+
+    const move = async (direction, cellSize) => {
         const result = slide(playerPos, direction, currentLevel);
 
         if (result.path.length === 0) return;
 
         const newVisited = new Set(visited);
 
-        result.path.forEach((p) => {
-            newVisited.add(`${p.x}-${p.y}`);
-        });
+        for (let step of result.path) {
+            await animateTo(step.x, step.y, cellSize);
 
-        setPlayerPos(result.end);
-        setVisited(newVisited);
+            newVisited.add(`${step.x}-${step.y}`);
+            setVisited(new Set(newVisited));
 
-        // 🔥 CHECK WIN
+            setPlayerPos(step);
+
+            await delay(10);
+        }
+
         if (isLevelComplete(currentLevel, newVisited)) {
             setShowWin(true);
 
@@ -52,6 +71,11 @@ export const useGame = () => {
             setVisited(
                 new Set([`${newLevel.initialPos.x}-${newLevel.initialPos.y}`])
             );
+
+            playerAnim.setValue({
+                x: newLevel.initialPos.x,
+                y: newLevel.initialPos.y,
+            });
         } else {
             console.log("🎉 Game Completed!");
         }
@@ -64,5 +88,6 @@ export const useGame = () => {
         level: currentLevel,
         levelIndex,
         showWin,
+        playerAnim,
     };
 };

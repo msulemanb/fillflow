@@ -145,7 +145,9 @@ This project focuses on:
 
 ## 📸 Screenshots
 
-> Coming soon...
+### 🎯 Level Example
+![Level](assets/screenshots/fillflow_1.jpg)
+![Level](assets/screenshots/fillflow_2.jpg)
 
 ---
 

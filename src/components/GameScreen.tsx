@@ -1,10 +1,23 @@
 import { Ionicons } from "@expo/vector-icons";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { useEffect } from "react";
+import { Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
 import { useGame } from "../game/useGame";
 import Grid from "./Grid";
 
 export default function GameScreen() {
-  const { playerPos, visited, move, level, levelIndex, showWin } = useGame();
+  const { playerPos, visited, move, level, levelIndex, showWin, playerAnim } =
+    useGame();
+
+  const SCREEN_WIDTH = Dimensions.get("window").width;
+  const cols = level.grid[0].length;
+  const cellSize = Math.floor(SCREEN_WIDTH / cols);
+
+  useEffect(() => {
+    playerAnim.setValue({
+      x: playerPos.x * cellSize,
+      y: playerPos.y * cellSize,
+    });
+  }, [levelIndex]);
 
   return (
     <View
@@ -21,7 +34,13 @@ export default function GameScreen() {
       </Text>
 
       {/* GAME BOARD */}
-      <Grid playerPos={playerPos} visited={visited} level={level} />
+      <Grid
+        playerPos={playerPos}
+        visited={visited}
+        level={level}
+        playerAnim={playerAnim}
+        cellSize={cellSize}
+      />
 
       {/* WIN MESSAGE */}
       {showWin && (
@@ -44,25 +63,31 @@ export default function GameScreen() {
 
       <View style={styles.dpad}>
         {/* UP */}
-        <Pressable style={styles.button} onPress={() => move("UP")}>
+        <Pressable style={styles.button} onPress={() => move("UP", cellSize)}>
           <Ionicons name="chevron-up" size={32} color="white" />
         </Pressable>
 
         {/* MIDDLE ROW */}
         <View style={styles.middleRow}>
-          <Pressable style={styles.button} onPress={() => move("LEFT")}>
+          <Pressable
+            style={styles.button}
+            onPress={() => move("LEFT", cellSize)}
+          >
             <Ionicons name="chevron-back" size={32} color="white" />
           </Pressable>
 
           <View style={styles.centerSpace} />
 
-          <Pressable style={styles.button} onPress={() => move("RIGHT")}>
+          <Pressable
+            style={styles.button}
+            onPress={() => move("RIGHT", cellSize)}
+          >
             <Ionicons name="chevron-forward" size={32} color="white" />
           </Pressable>
         </View>
 
         {/* DOWN */}
-        <Pressable style={styles.button} onPress={() => move("DOWN")}>
+        <Pressable style={styles.button} onPress={() => move("DOWN", cellSize)}>
           <Ionicons name="chevron-down" size={32} color="white" />
         </Pressable>
       </View>
