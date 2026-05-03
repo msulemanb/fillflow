@@ -1,10 +1,5 @@
-// This is game screen
-import { Text, View } from "react-native";
+import GameScreen from "../src/components/GameScreen";
 
 export default function Index() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>FillFlow 🎮</Text>
-    </View>
-  );
+  return <GameScreen />;
 }
