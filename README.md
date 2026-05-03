@@ -67,7 +67,7 @@ FillFlow challenges players to slide through a maze, filling every path with col
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/your-username/fillflow.git
+git clone https://github.com/msulemanb/fillflow.git
 cd fillflow
 ```
 
