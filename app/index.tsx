@@ -1,7 +1,7 @@
 // This is game screen
 import { Text, View } from "react-native";
 
-export default function Home() {
+export default function Index() {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>FillFlow 🎮</Text>
